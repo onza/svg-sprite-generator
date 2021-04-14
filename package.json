@@ -1,0 +1,22 @@
+{
+  "name": "svg-sprite-module",
+  "version": "1.0.0",
+  "description": "module to create svg sprites",
+  "main": "gulpfile.js",
+  "author": "Martin Farkas <info@martinfarkas.com>",
+  "license": "ISC",
+  "dependencies": {
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.1.0",
+    "gulp-svg-sprite": "^1.5.0",
+    "gulp-inject": "^5.0.5",
+    "npm": "^6.14.11"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.14"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}

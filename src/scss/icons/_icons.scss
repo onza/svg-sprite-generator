@@ -1,0 +1,65 @@
+.icon {
+  display: inline-block;
+  width: $icon-default-width;
+  height: $icon-default-height;
+  font-size: $icon-default-size;
+  vertical-align: middle;
+  // icon size ------------------------
+  &--xs {
+    font-size: $icon-xs;
+  }
+  &--sm {
+    font-size: $icon-sm;
+  }
+  &--md {
+    font-size: $icon-md;
+  }
+  &--lg {
+    font-size: $icon-lg;
+  }
+  &--xl {
+    font-size: $icon-xl;
+  }
+  // icon colors ------------------------
+  &--primary {
+    color: $color-primary;
+  }
+  &--secondary {
+    color: $color-secondary;
+  }
+  &--alert {
+    color: $color-alert;
+  }
+  &--warning {
+    color: $color-warning;
+  }
+  &--success {
+    color: $color-success;
+  }
+  // rounded icon ------------------------
+  &--circle {
+    padding: 0.25rem;
+    border-radius: 50%;
+    background-color: currentColor;
+    font-size: ($icon-default-size * $icon-circle);
+    overflow: visible;
+    &.icon--xs {
+      font-size: ($icon-xs * $icon-circle);
+    }
+    &.icon--sm {
+      font-size: ($icon-sm * $icon-circle);
+    }
+    &.icon--md {
+      font-size: ($icon-md * $icon-circle);
+    }
+    &.icon--lg {
+      font-size: ($icon-lg * $icon-circle);
+    }
+    &.icon--xl {
+      font-size: ($icon-xl * $icon-circle);
+    }
+    use {
+      color: hsl(0, 0%, 95%);
+    }
+  }
+}

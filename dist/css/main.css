@@ -1,0 +1,44 @@
+.icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  font-size: 1rem;
+  vertical-align: middle; }
+  .icon--xs {
+    font-size: 0.75rem; }
+  .icon--sm {
+    font-size: 0.875rem; }
+  .icon--md {
+    font-size: 1rem; }
+  .icon--lg {
+    font-size: 1.125rem; }
+  .icon--xl {
+    font-size: 1.25rem; }
+  .icon--primary {
+    color: #0338ca; }
+  .icon--secondary {
+    color: #969696; }
+  .icon--alert {
+    color: #ca0202; }
+  .icon--warning {
+    color: #ddbc03; }
+  .icon--success {
+    color: #178a00; }
+  .icon--circle {
+    padding: 0.25rem;
+    border-radius: 50%;
+    background-color: currentColor;
+    font-size: 1rem;
+    overflow: visible; }
+    .icon--circle.icon--xs {
+      font-size: 0.75rem; }
+    .icon--circle.icon--sm {
+      font-size: 0.875rem; }
+    .icon--circle.icon--md {
+      font-size: 1rem; }
+    .icon--circle.icon--lg {
+      font-size: 1.125rem; }
+    .icon--circle.icon--xl {
+      font-size: 1.25rem; }
+    .icon--circle use {
+      color: #f2f2f2; }
