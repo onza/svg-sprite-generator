@@ -1,5 +1,6 @@
 # SVG Sprite generation via gulp tasks
-A simple - already often described - method for the automated creation of SVG sprites.
+### A simple - already often described - method for the automated creation of SVG sprites.
+[Watch Demo](https://onza.github.io/svg-sprite-generator/)
 
 ## How does this work
 Put SVG files in the icon source directory, the gulp tasks will create the sprite file.<br>
