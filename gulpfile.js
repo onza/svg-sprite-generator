@@ -3,8 +3,9 @@ const { dest } = require('gulp');
 var gulp = require('gulp'),
     del = require('del'),
     sass = require('gulp-sass'),
+    rename = require("gulp-rename"),
     svgSprite = require('gulp-svg-sprite'),
-    inject = require('gulp-inject');
+    inject = require('gulp-inject'),
     browsersync = require('browser-sync').create();
 
 
@@ -21,7 +22,6 @@ var paths = {
   },
   html: {
     src: 'dist/*.html',
-    dest: 'dist/'
   },
 };
 
@@ -30,24 +30,31 @@ var paths = {
 // -------------------------------------------------------------------------
 function clean() {
   return del([
-    'dist/css/*',
+    '.temp',
     'dist/icons/*',
+    'dist/css/*',
   ]);
 }
 
 
-// css tasks: compile scss to css
+// rename icons (if material icons/google icons) & copy to .temp folder
 // -------------------------------------------------------------------------
-function styles() {
-  return gulp.src(paths.styles.src)
-    .pipe(sass())
-    .pipe(gulp.dest(paths.styles.dest))
+function copyicons() {
+  return gulp.src(paths.icons.src)
+  .pipe(rename(function(opt) {
+    opt.basename = opt.basename.replace(/_black/, '');
+    opt.basename = opt.basename.replace(/_24dp/, '');
+    return opt;
+  }))
+  .pipe(gulp.dest('.temp/icons/'));
 }
 
 
-// Compile the SVG sprite
+// compile the SVG sprite
 function sprite() {
-  return gulp.src(paths.icons.src)
+  return gulp.src([
+    '.temp/icons/**/*.svg',
+  ])
     .pipe(svgSprite({
       mode: {
         symbol: {
@@ -63,21 +70,20 @@ function sprite() {
 }
 
 
-// Inject the sprite to index.html
-function inject() {
-  return gulp.src(paths.html.src)
-    .pipe(
-      inject(
-        gulp.src(paths.styles.dest),
-        {
-          starttag: '<!-- inject:sprite.svg -->',
-          transform: function(filePath, file) {
-            return file.contents.toString('utf8');
-          },
-        },
-      ),
-    )
-    .pipe(gulp.dest('./dist'));
+// inject sprite.svg to index.html
+// function inject() {
+//   return gulp.src('./dist/index.html')
+//     .pipe(inject(gulp.src('dist/icons/sprite.svg', {read:false}),{starttag: '<!-- inject:sprite:{{ext}} -->'}))
+//     .pipe(gulp.dest('./dist'));
+// }
+
+
+// css tasks: compile scss to css
+// -------------------------------------------------------------------------
+function styles() {
+  return gulp.src(paths.styles.src)
+    .pipe(sass())
+    .pipe(gulp.dest(paths.styles.dest))
 }
 
 
@@ -87,14 +93,14 @@ function watch() {
   browsersync.init({
     server: './dist'
   });
-    gulp.watch(paths.styles.src, styles).on('change', browsersync.reload)
     gulp.watch(paths.icons.src, sprite).on('change', browsersync.reload)
+    gulp.watch(paths.styles.src, styles).on('change', browsersync.reload)
     gulp.watch(paths.html.src).on('change', browsersync.reload)
 }
 
 
 // build
 // -------------------------------------------------------------------------
-var build = gulp.series(clean, gulp.parallel(styles, sprite), inject, watch);
+var build = gulp.series(gulp.parallel(clean, copyicons), gulp.parallel(sprite, styles), watch);
 
 exports.default = build;
