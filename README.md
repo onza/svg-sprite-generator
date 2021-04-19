@@ -10,6 +10,9 @@ Icons can be added or deleted at any time, the sprite file is automatically upda
 The appearance such as icon color, size, etc. can be changed by utility classes. Examples of styling are included.<br>
 For the SVG files, ``<svg fill="currentColor" `` is required as a color value for color manipulation via css.
 
+### Rename task to rename Materiale Icons/Google Icons
+Icons are renamed (_black_24dp is deleted) in order to shorten the file names & sprite svg id´s. 
+
 ## Requirements
 - Node
 - NPM
@@ -26,7 +29,7 @@ For the SVG files, ``<svg fill="currentColor" `` is required as a color value fo
   <use xlink:href="#{icon_file_name}"></use>
 </svg>
 ```
-Before the closing body of the HTML file put the sprite file to avoid additional requests.
+Put the sprite file before the closing body of the HTML file.
 ```
 <div style="display:none;">
   {Content of the SVG sprite file}
