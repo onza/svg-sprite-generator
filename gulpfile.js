@@ -93,7 +93,7 @@ function watch() {
   browsersync.init({
     server: './dist'
   });
-    gulp.watch(paths.icons.src, sprite).on('change', browsersync.reload)
+    gulp.watch(paths.icons.src, changeicons).on('change', browsersync.reload)
     gulp.watch(paths.styles.src, styles).on('change', browsersync.reload)
     gulp.watch(paths.html.src).on('change', browsersync.reload)
 }
@@ -101,6 +101,7 @@ function watch() {
 
 // build
 // -------------------------------------------------------------------------
-var build = gulp.series(gulp.parallel(clean, copyicons), gulp.parallel(sprite, styles), watch);
+var build = gulp.series(clean, copyicons, gulp.parallel(sprite, styles), watch);
+var changeicons = gulp.series(clean, copyicons, gulp.parallel(sprite, styles));
 
 exports.default = build;
