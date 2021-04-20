@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 // -------------------------------------------------------------------------
 var paths = {
   styles: {
-    src: 'src/scss/**/*.scss',
+    src: 'src/scss/**/main.scss',
     dest: 'dist/css/'
   },
   icons: {
@@ -21,7 +21,7 @@ var paths = {
     dest: 'dist/icons/'
   },
   html: {
-    src: 'dist/*.html',
+    src: 'src/*.html',
   },
 };
 
@@ -31,8 +31,7 @@ var paths = {
 function clean() {
   return del([
     '.temp',
-    'dist/icons/*',
-    'dist/css/*',
+    'dist/*',
   ]);
 }
 
@@ -52,9 +51,7 @@ function copyicons() {
 
 // compile the SVG sprite
 function sprite() {
-  return gulp.src([
-    '.temp/icons/**/*.svg',
-  ])
+  return gulp.src('.temp/icons/**/*.svg',)
     .pipe(svgSprite({
       mode: {
         symbol: {
@@ -71,11 +68,11 @@ function sprite() {
 
 
 // inject sprite.svg to index.html
-// function inject() {
-//   return gulp.src('./dist/index.html')
-//     .pipe(inject(gulp.src('dist/icons/sprite.svg', {read:false}),{starttag: '<!-- inject:sprite:{{ext}} -->'}))
-//     .pipe(gulp.dest('./dist'));
-// }
+function injectsprite() {
+  return gulp.src('./src/index.html')
+    .pipe(inject(gulp.src('./dist/icons/sprite.svg', {read: false}), {name: 'sprite'}))
+    .pipe(gulp.dest('./dist'));
+}
 
 
 // css tasks: compile scss to css
@@ -101,7 +98,7 @@ function watch() {
 
 // build
 // -------------------------------------------------------------------------
-var build = gulp.series(clean, copyicons, gulp.parallel(sprite, styles), watch);
-var changeicons = gulp.series(clean, copyicons, gulp.parallel(sprite, styles));
+var build = gulp.series(clean, copyicons, gulp.parallel(sprite, styles), injectsprite, watch);
+var changeicons = gulp.series(clean, copyicons, gulp.parallel(sprite, styles), injectsprite);
 
 exports.default = build;
