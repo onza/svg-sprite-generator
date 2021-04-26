@@ -5,8 +5,9 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     rename = require("gulp-rename"),
     svgSprite = require('gulp-svg-sprite'),
-    inject = require('gulp-inject'),
-    browsersync = require('browser-sync').create();
+    inject = require('gulp-inject-string'),
+    browsersync = require('browser-sync').create(),
+    fs = require('fs');
 
 
 // file paths
@@ -22,6 +23,7 @@ var paths = {
   },
   html: {
     src: 'src/*.html',
+    dest: 'dist/'
   },
 };
 
@@ -70,8 +72,8 @@ function sprite() {
 // inject sprite.svg to index.html
 function injectsprite() {
   return gulp.src('./src/index.html')
-    .pipe(inject(gulp.src('./dist/icons/sprite.svg', {read: false}), {name: 'sprite'}))
-    .pipe(gulp.dest('./dist'));
+    .pipe(inject.replace("%%INJECT_SPRITE%%", fs.readFileSync('./dist/icons/sprite.svg')))
+    .pipe(gulp.dest(paths.html.dest));
 }
 
 
@@ -90,7 +92,7 @@ function watch() {
   browsersync.init({
     server: './dist'
   });
-    gulp.watch(paths.icons.src, changeicons).on('change', browsersync.reload)
+    gulp.watch(paths.icons.src, build).on('change', browsersync.reload)
     gulp.watch(paths.styles.src, styles).on('change', browsersync.reload)
     gulp.watch(paths.html.src).on('change', browsersync.reload)
 }
@@ -98,7 +100,8 @@ function watch() {
 
 // build
 // -------------------------------------------------------------------------
-var build = gulp.series(clean, copyicons, gulp.parallel(sprite, styles), injectsprite, watch);
-var changeicons = gulp.series(clean, copyicons, gulp.parallel(sprite, styles), injectsprite);
+var build = gulp.series(clean, copyicons, gulp.parallel(sprite, styles), injectsprite);
 
-exports.default = build;
+
+gulp.task("build", build);
+gulp.task("watch", watch);
