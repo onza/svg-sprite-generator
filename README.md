@@ -25,7 +25,7 @@ For the SVG files, ``<svg fill="currentColor" `` is required as a color value fo
   <use xlink:href="#{icon_file_name}"></use>
 </svg>
 ```
-Put the sprite file before the closing body of the HTML file.
+Put the sprite file before the closing body of the HTML file if not done via task.
 ```
 <div style="display:none;">
   {Content of the SVG sprite file}
