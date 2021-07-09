@@ -31,4 +31,4 @@ Put the sprite file before the closing body of the HTML file if not done via tas
   {Content of the SVG sprite file}
 </div>
 ```
-Another possibility is to give each icon the path to the sprite file.
+Another possibility is to give each icon the path to the sprite file. In this case the file can be cached by the browser. 
