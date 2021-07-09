@@ -4,6 +4,7 @@
   height: $icon-default-height;
   font-size: $icon-default-size;
   vertical-align: middle;
+
   // icon size ------------------------
   &--xs {
     font-size: $icon-xs;
@@ -20,6 +21,7 @@
   &--xl {
     font-size: $icon-xl;
   }
+
   // icon colors ------------------------
   &--primary {
     color: $color-primary;
@@ -36,6 +38,7 @@
   &--success {
     color: $color-success;
   }
+  
   // rounded icon ------------------------
   &--circle {
     padding: 0.25rem;
