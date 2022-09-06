@@ -1,4 +1,4 @@
-# SVG Sprite generation (via Gulp)
+# Demo: how to generate svg sprites via gulp.js
 ### A simple - already often described - method for the automated creation of SVG sprites.
 [Watch Demo](https://onza.github.io/svg-sprite-generator/)
 
